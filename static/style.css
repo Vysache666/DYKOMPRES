@@ -1,0 +1,144 @@
+/* VARIABEL WARNA GLOBAL */
+:root {
+  --pink-light: #fdf2f8;     /* untuk background */
+  --pink-medium: #fce7f3;    /* Warna pink medium */
+  --pink-dark: #f472b6;      /* Warna pink utama aplikasi */
+  --purple: #8b5cf6;         /* Warna aksen ungu */
+  --gray-light: #f3f4f6;     /* untuk section */
+  --gray-medium: #9ca3af;    /* teks sekunder */
+  --gray-dark: #4b5563;      /* teks utama */
+}
+
+/* Mengatur box sizing agar padding tidak menambah ukuran elemen */
+* {
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
+  margin: 0;   /* Menghilangkan margin default browser */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: linear-gradient(135deg, var(--pink-light), var(--pink-medium));
+  min-height: 100vh;   /* Tinggi minimum satu layar penuh */
+  display: flex;
+  justify-content: center;   /* Posisi horizontal tengah */
+  align-items: center;       /* Posisi vertikal tengah */
+  padding: 20px;
+}
+
+/* CONTAINER UTAMA */
+.container {
+  background: white;
+  border-radius: 24px;        /* Membuat sudut membulat */
+  padding: 40px;
+  width: 100%;
+  max-width: 520px;           /* Batas lebar agar tidak terlalu besar */
+  box-shadow: 0 20px 60px rgba(244, 114, 182, 0.15); /* Efek bayangan */
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  color: var(--pink-dark);
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: var(--gray-medium);
+  font-size: 15px;
+}
+
+/* AREA UPLOAD */
+.upload-box {
+  border: 3px dashed var(--pink-medium); /* Border putus-putus */
+  border-radius: 20px;
+  padding: 50px 20px;
+  text-align: center;
+  cursor: pointer;           /* Menandakan elemen bisa diklik */
+  margin-bottom: 25px;
+}
+
+/* Menyembunyikan input file asli */
+input[type="file"] {
+  display: none;
+}
+
+/* PENGATURAN KOMPRESI */
+.settings {
+  background: var(--gray-light);
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+
+.option-group {
+  margin-bottom: 20px;
+}
+
+/* Dropdown metode kompresi */
+select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid #e5e7eb;
+}
+
+/* PILIHAN KUALITAS */
+.quality-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dua kolom sejajar */
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.quality-option {
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid #e5e7eb;
+  text-align: center;
+  cursor: pointer;
+  background: white;
+}
+
+/* Tampilan ketika opsi kualitas dipilih */
+.quality-option.selected {
+  border-color: var(--purple);
+  background: var(--pink-light);
+}
+
+/* TOMBOL SUBMIT */
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--pink-dark), var(--purple));
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* HASIL KOMPRESI */
+.results {
+  margin-top: 25px;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+/* PESAN ERROR */
+.error-message {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}

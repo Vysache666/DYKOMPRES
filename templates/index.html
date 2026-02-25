@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DYKOMPRES</title>
+    <!-- Menghubungkan file CSS menggunakan url_for Flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+
+  <body>
+    <!-- Container utama untuk membungkus seluruh konten -->
+    <div class="container">
+
+      <!-- Bagian header / judul aplikasi -->
+      <div class="header">
+        <h1 class="title">DYKOMPRES</h1>
+        <p class="subtitle">Selamat datang di DYKOMPRES, mau kompres apa hari ini?</p>
+      </div>
+
+      <!-- Menampilkan pesan error jika terjadi kesalahan -->
+      {% if error %}
+      <div class="error-message">{{ error }}</div>
+      {% endif %}
+
+      <!-- FORM INPUT (SEBELUM HASIL) -->
+      {% if not hasil %}
+      <form method="POST" enctype="multipart/form-data" action="{{ url_for('index') }}">
+
+        <!-- Area upload gambar -->
+        <div class="upload-box" id="uploadBox">
+          <span id="uploadText">Klik pilih gambar</span>
+          <p style="margin-top: 8px; font-size: 13px; color: #9ca3af">
+            Format: JPG dan PNG
+          </p>
+
+          <!-- Input file, dipicu lewat klik pada upload-box -->
+          <input
+            type="file"
+            id="fileInput"
+            name="gambar"
+            required
+            accept=".jpg,.jpeg,.png"
+          />
+        </div>
+
+        <!-- Pengaturan metode dan kualitas kompresi -->
+        <div class="settings">
+
+          <!-- Pilihan metode kompresi -->
+          <div class="option-group">
+            <label>Metode Kompresi</label>
+            <select name="metode" id="methodSelect">
+              <option value="lossy">Lossy</option>
+              <option value="lossless">Lossless</option>
+            </select>
+          </div>
+
+          <!-- Pengaturan kualitas (hanya untuk lossy) -->
+          <div class="option-group" id="qualitySection">
+            <label>Tingkat Kualitas</label>
+
+            <!-- Opsi kualitas ditampilkan dalam bentuk grid -->
+            <div class="quality-grid">
+              <div class="quality-option selected" data-value="standar">
+                Standar
+              </div>
+              <div class="quality-option" data-value="low">
+                Low
+              </div>
+            </div>
+
+            <!-- Input tersembunyi untuk mengirim nilai kualitas ke backend -->
+            <input type="hidden" name="kualitas" id="qualityInput" value="standar" />
+          </div>
+        </div>
+
+        <!-- Tombol submit untuk memulai proses kompresi -->
+        <button type="submit" class="submit-btn">
+          Kompres Sekarang
+        </button>
+      </form>
+      {% endif %}
+
+      <!--  HASIL KOMPRESI  -->
+      {% if hasil %}
+      <div class="results">
+
+        <!-- Informasi hasil kompresi -->
+        <div class="result-row"><strong>Metode</strong><span>{{ metode }}</span></div>
+        <div class="result-row"><strong>Kualitas</strong><span>{{ kualitas }}</span></div>
+        <div class="result-row"><strong>Ukuran Awal</strong><span>{{ awal }} KB</span></div>
+        <div class="result-row"><strong>Ukuran Akhir</strong><span>{{ akhir }} KB</span></div>
+        <div class="result-row"><strong>Penghematan</strong><span>{{ penghematan }}%</span></div>
+        <div class="result-row"><strong>Rasio Kompresi</strong><span>1 : {{ rasio }}</span></div>
+
+        <!-- Tombol download hasil kompresi -->
+        <a href="{{ url_for('download', filename=nama_file) }}">
+          <button class="submit-btn" style="margin-top: 15px">
+            Download Hasil
+          </button>
+        </a>
+
+        <!-- Tombol kembali ke halaman awal -->
+        <a href="{{ url_for('index') }}" style="text-decoration: none">
+          <button
+            class="submit-btn"
+            style="margin-top: 10px; background: #e5e7eb; color: #4b5563"
+          >
+            Kembali
+          </button>
+        </a>
+
+        <hr style="margin: 30px 0" />
+
+        <!-- Perbandingan gambar sebelum dan sesudah -->
+        <h3 style="text-align: center; color: var(--purple)">
+          Perbandingan Gambar
+        </h3>
+
+        <div style="display: flex; gap: 15px; margin-top: 15px">
+          <div style="flex: 1; text-align: center">
+            <p><strong>Sebelum</strong></p>
+            <img
+              src="{{ url_for('static', filename='previews/' + before_img) }}"
+              style="width: 100%; border-radius: 16px"
+              alt="Gambar Sebelum Kompresi"
+            />
+          </div>
+
+          <div style="flex: 1; text-align: center">
+            <p><strong>Sesudah</strong></p>
+            <img
+              src="{{ url_for('static', filename='previews/' + after_img) }}"
+              style="width: 100%; border-radius: 16px"
+              alt="Gambar Sesudah Kompresi"
+            />
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <!--  JAVASCRIPT  -->
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+  </body>
+</html>
